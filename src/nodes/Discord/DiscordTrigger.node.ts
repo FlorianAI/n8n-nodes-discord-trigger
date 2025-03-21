@@ -3,7 +3,6 @@ import {
 	GatewayIntentBits,
 	Partials,
 	Message,
-	TextChannel,
 	GuildBasedChannel,
 } from 'discord.js';
 
@@ -30,7 +29,7 @@ export class DiscordTrigger implements INodeType {
 			name: 'Discord Trigger',
 		},
 		inputs: [],
-		outputs: ['main'],
+		outputs: [{ type: 'main' }],
 		credentials: [
 			{
 				name: 'discordBotApi',
@@ -106,7 +105,7 @@ export class DiscordTrigger implements INodeType {
 
 				await client.login(token);
 				const guilds = await client.guilds.fetch();
-				const options = [];
+				const options: { name: string; value: string }[] = [];
 
 				for (const [, guildPreview] of guilds) {
 					const guild = await guildPreview.fetch();
